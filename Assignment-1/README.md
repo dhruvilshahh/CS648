@@ -11,4 +11,4 @@ The objective of this assignment is to create a basic webpage which shows inform
 * Client Testimonials
 * Contact Information
 
-![GitHub Logo](/git-image.png)
+<img src="git-image.png" width="400px" height="200px" alt="Github logo">
