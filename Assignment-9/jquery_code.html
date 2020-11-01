@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Practice with jQuery Events</title>
+
+	<style>
+		#divAlert, #divSpan {
+			border: 1px solid black;
+			margin: 10px 0px;
+		}
+	</style>
+
+</head>
+<body>
+	<button id="btn1">Button-1</button>
+	<button id="btn2">Button-2(Binded)</button>
+	<button id="btn3">Button-3(On)</button>
+
+	<button class="btn4">Button-Class 1</button>
+	<button class="btn4">Button-Class 2</button>
+
+	<div id="divAlert"></div>
+	<div id="divSpan"></div>
+	<span>Mouse: </span>
+
+	<br>
+	<a href="http://modulemedia.com">Link to ModuleMedia</a>
+
+	<br>
+	<div id="size"></div>
+
+	<br>
+	Background Changing TextBox: <input type="text" name="bg" id="bg">
+
+	<br> <br>
+	<form>
+		Name: <input type="text" name="name" id="name">
+		Email: <input type="email" name="email" id="email">
+		<button type="submit">Submit</button>
+	</form>
+
+	<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+	<script>
+	
+		// Step 1
+		$("#btn1").click(function () {
+			alert("Button is clicked...");
+		})
+		// Step 2
+		$("#btn2").bind("click", function () {
+			alert("Binded button is clicked...");
+		})
+		// Step 3
+		$("#btn3").on("click", function () {
+			alert("Button - on is clicked...");
+		})
+		// Step 4
+		$(".btn4").on("click", function () {
+			alert("Button - Class x is clicked...");
+		})
+		// Step 5
+		$("#divAlert").height("400px");
+		$("#divAlert").width("400px");
+		$("#divAlert").on("mouseenter", function () {
+			alert("Mouse entered...");
+		})
+		$("#divAlert").on("mouseleave", function () {
+			alert("Mouse left...");
+		})
+		$("#divAlert").on("click", function () {
+			alert("Mouse clicked...");
+		})
+		// Step 6
+		$("#divSpan").height("400px");
+		$("#divSpan").width("400px");
+		$("#divSpan").on("mouseenter", function () {
+			$("span").text("Mouse:entered");
+		})
+		$("#divSpan").on("mouseleave", function () {
+			$("span").text("Mouse:left");
+		})
+		$("#divSpan").on("click", function () {
+			$("span").text("Mouse:clicked");
+		})
+		// Step 7
+		$("a").click(function (e) {
+			e.preventDefault();
+			$(this).css("color", "red");
+			alert("Node name: " + e.target.nodeName);
+		})
+	
+		// Step 8
+		function resized() {
+			$("#size").html("Width: " + $(window).width() + " Height: " + $(window).height());		
+		}
+		resized();
+		$(window).resize(resized);
+		// Step 9
+		$("input#bg").on("focus", function () {
+			$(this).css("background-color", "grey");
+		})
+		$("input#bg").on("blur", function () {
+			$(this).css("background-color", "white");
+		})
+		// Step 10
+		$("form").on("submit", function (e) {
+			e.preventDefault();
+			var val = $(this).serializeArray();
+			var str = ""
+			for (let i = 0; i < val.length; i++) {
+				const el = val[i];
+				if (el.value == "") {
+					$("input[name='" + el.name + "']").css("border", "2px solid red");
+					str += el.name + ",";
+				} else {
+					$("input[name='" + el.name + "']").css("border", "none");
+				}
+			}
+			if(str.length > 0) alert(str.substring(0, str.length - 1) + " is required");
+			else $("form input").css("border", "2px solid green");
+		})
+	</script>
+</body>
+</html>
